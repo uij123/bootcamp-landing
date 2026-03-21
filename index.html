@@ -943,7 +943,7 @@
   }
 
   /* Ensure content stacks above blobs */
-  nav, .hero, .strip, .built-by-wrapper, #programme,
+  nav, .hero, .strip, .ttf-wrapper, .built-by-wrapper, #programme,
   .cta-section, footer,
   div[style*="border-top"] { position: relative; z-index: 1; }
 
@@ -962,6 +962,112 @@
   .delay-3 { animation-delay: 0.45s; }
   .delay-4 { animation-delay: 0.6s; }
 
+  /* TRAIN TRACK FIRE */
+  .ttf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .ttf-card {
+    background: rgba(245,243,239,0.03);
+    border: 1px solid rgba(245,243,239,0.1);
+    border-left: 3px solid var(--accent2);
+    border-radius: 3px;
+    padding: 2.5rem 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .ttf-card:hover { border-left-color: var(--accent); transform: translateY(-2px); }
+  .ttf-card--fire { border-left-color: var(--accent); }
+
+  .ttf-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    color: rgba(245,243,239,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .ttf-title {
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .ttf-desc {
+    font-size: 0.92rem;
+    color: rgba(245,243,239,0.6);
+    line-height: 1.65;
+  }
+
+  .ttf-quotes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .ttf-quote {
+    background: rgba(245,243,239,0.03);
+    border: 1px solid rgba(245,243,239,0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    padding: 1.8rem 1.5rem;
+  }
+
+  .ttf-quote p {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(245,243,239,0.85);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .ttf-quote cite {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    display: block;
+  }
+
+  .ttf-closing {
+    text-align: center;
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--white);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .ttf-closing em {
+    background: linear-gradient(120deg, #f97316 0%, #ec4899 45%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* MACRO CALLOUT */
+  .macro-callout {
+    background: rgba(245,243,239,0.04);
+    border: 1px solid rgba(245,243,239,0.12);
+    border-radius: 4px;
+    padding: 2.5rem 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1rem;
+    color: rgba(245,243,239,0.7);
+    line-height: 1.75;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
@@ -973,6 +1079,10 @@
     .hero-stats { gap: 2rem; }
 
     section { padding: 4rem 1.5rem; }
+
+    .ttf-grid { grid-template-columns: 1fr; }
+    .ttf-quotes { grid-template-columns: 1fr; }
+    .macro-callout { padding: 2rem 1.5rem; }
 
     .built-by-grid { grid-template-columns: 1fr; }
     .program-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -1008,7 +1118,7 @@
   <div class="hero-left">
     <div class="eyebrow fade-up">Paris · Bootcamp IA · Fluent AI</div>
     <h1 class="fade-up delay-1">L'IA ne vous<br>remplacera pas.<br><em>Mais ceux qui<br>la maîtrisent, oui.</em></h1>
-    <p class="hero-desc fade-up delay-2">Fluent AI est le premier bootcamp parisien conçu pour les professionnels non-techniques. En 5 semaines, passez de spectateur à acteur de la révolution IA — sans écrire une ligne de code.</p>
+    <p class="hero-desc fade-up delay-2">Vous entendez parler de Claude Code, de GPT, d'agents IA, de MCP. Vous voyez les licenciements chez Block, les prédictions de Citrini, l'essai viral de Shumer. Vous sentez que ça bouge — mais vous ne savez pas par où commencer.<br><br>Fluent AI est le bootcamp qui vous fait passer de spectateur à opérationnel en 5 semaines — sans écrire une ligne de code.</p>
     <div class="hero-actions fade-up delay-3">
       <a href="#inscription" class="btn-primary">Candidater à la prochaine session →</a>
       <span class="btn-ghost">Voir le programme</span>
@@ -1032,19 +1142,23 @@
   <div class="hero-right">
     <div class="hero-card fade-up delay-2">
       <div class="card-tag">Vous vous reconnaissez ?</div>
-      <h3 class="card-headline">Trois peurs,<br>une solution.</h3>
+      <h3 class="card-headline">Vous êtes là<br>aujourd'hui.</h3>
       <ul class="fears-list">
         <li class="fear-item">
           <span class="fear-icon">😶‍🌫️</span>
-          <span class="fear-text">Je ne sais pas par où commencer</span>
+          <span class="fear-text">Vous avez testé ChatGPT une fois. Vous avez trouvé ça "sympa". Et c'est tout.</span>
         </li>
         <li class="fear-item">
-          <span class="fear-icon">⚡</span>
-          <span class="fear-text">Mon poste va être remplacé par l'IA</span>
+          <span class="fear-icon">⏳</span>
+          <span class="fear-text">Vous passez 3h par semaine à copier-coller des données d'un outil à l'autre.</span>
         </li>
         <li class="fear-item">
-          <span class="fear-icon">🚀</span>
-          <span class="fear-text">Je veux rejoindre la tech, mais je ne sais pas comment</span>
+          <span class="fear-icon">😬</span>
+          <span class="fear-text">Un collègue sort un livrable en 20 minutes qui vous aurait pris une demi-journée — et vous ne savez pas comment.</span>
+        </li>
+        <li class="fear-item">
+          <span class="fear-icon">📰</span>
+          <span class="fear-text">Vous voyez passer des articles sur l'IA tous les jours mais vous ne savez toujours pas quoi en faire concrètement.</span>
         </li>
       </ul>
     </div>
@@ -1079,6 +1193,70 @@
     <span class="strip-text">Candidature ouverte</span>
     <span class="strip-dot"></span>
   </div>
+</div>
+
+<!-- TRAIN TRACK FIRE -->
+<div class="ttf-wrapper" style="border-top: 1px solid rgba(245,243,239,0.08); border-bottom: 1px solid rgba(245,243,239,0.08); background: rgba(245,243,239,0.02); position: relative; z-index: 1;">
+<section>
+  <div style="text-align:center; margin-bottom: 3.5rem;">
+    <div class="section-label" style="display:flex; justify-content:center;">La réalité</div>
+    <h2>Ce que les entreprises font —<br><em style="font-style:italic;">maintenant.</em></h2>
+    <p style="color:rgba(245,243,239,0.55); max-width:560px; margin: 1rem auto 0; font-size:0.98rem; line-height:1.75;">Les grandes entreprises n'attendent plus. Elles appliquent toutes le même playbook.</p>
+  </div>
+
+  <div class="ttf-grid">
+    <div class="ttf-card">
+      <div class="ttf-num">01</div>
+      <div class="ttf-title">TRAIN</div>
+      <p class="ttf-desc">Former les équipes à l'IA. Mapper chaque processus. Identifier ce qui est automatisable.</p>
+    </div>
+    <div class="ttf-card">
+      <div class="ttf-num">02</div>
+      <div class="ttf-title">TRACK</div>
+      <p class="ttf-desc">Déployer des agents IA. Mesurer l'usage, la consommation de tokens, la productivité de chaque employé.</p>
+    </div>
+    <div class="ttf-card ttf-card--fire">
+      <div class="ttf-num">03</div>
+      <div class="ttf-title">FIRE</div>
+      <p class="ttf-desc">Se séparer de ceux qui ne s'adaptent pas.</p>
+    </div>
+  </div>
+
+  <div class="ttf-quotes">
+    <blockquote class="ttf-quote">
+      <p>"Si un ingénieur payé 500 000 $ ne consomme pas au moins 250 000 $ en tokens IA par an, je vais être profondément alarmé."</p>
+      <cite>Jensen Huang, CEO de NVIDIA · GTC 2026, mars 2026</cite>
+    </blockquote>
+    <blockquote class="ttf-quote">
+      <p>"Les outils d'intelligence ont changé ce que signifie construire et gérer une entreprise. Une équipe bien plus petite peut faire plus, et mieux. Je pense que la plupart des entreprises sont en retard."</p>
+      <cite>Jack Dorsey, CEO de Block · Février 2026, après avoir licencié 40% de ses effectifs</cite>
+    </blockquote>
+    <blockquote class="ttf-quote">
+      <p>"Des projets qui nécessitaient de grandes équipes peuvent désormais être accomplis par une seule personne talentueuse."</p>
+      <cite>Mark Zuckerberg, CEO de Meta · Mars 2026</cite>
+    </blockquote>
+    <blockquote class="ttf-quote">
+      <p>"Ne pas adopter l'IA pourrait vous coûter votre prochaine promotion."</p>
+      <cite>Julie Sweet, CEO d'Accenture · GTC 2026</cite>
+    </blockquote>
+  </div>
+
+  <div class="ttf-closing">
+    La question n'est plus "est-ce que l'IA va changer mon métier&nbsp;?"<br>
+    C'est&nbsp;: <em>"est-ce que je serai du côté de ceux qui l'utilisent, ou de ceux qu'on remplace&nbsp;?"</em>
+  </div>
+</section>
+</div>
+
+<!-- MACRO CONTEXT CALLOUT -->
+<div style="position: relative; z-index: 1;">
+<section style="padding: 4rem 4rem;">
+  <div class="macro-callout">
+    <p>En février 2026, l'essai de Matt Shumer <em>"Something Big Is Happening"</em> a été vu 85 millions de fois. Le mémo de Citrini Research a fait chuter les marchés. Block a licencié 4 000 personnes. Meta prépare la suite.</p>
+    <p style="margin-top:1rem; color: var(--white); font-weight: 600;">Ce n'est plus de la prospective. C'est le présent.</p>
+    <p style="margin-top:0.5rem;">Ceux qui s'y mettent maintenant prennent une avance que les autres mettront des mois à rattraper.</p>
+  </div>
+</section>
 </div>
 
 <!-- BUILT BY -->
@@ -1135,7 +1313,7 @@
       <div class="module">
         <span class="module-num">S1</span>
         <div>
-          <div class="module-title">Comprendre le Paysage</div>
+          <div class="module-title">Parler IA couramment</div>
           <div class="module-desc">LLMs, tokens, hallucinations · carte des acteurs (OpenAI, Anthropic, Google, Mistral) · stack IA en clair · filtre hype · <span style="color:var(--accent);font-size:0.8rem;">Perplexity · Claude</span><br><span style="color:rgba(245,243,239,0.4);font-size:0.78rem;">Async : briefing paysage IA pour votre secteur, format présentation manager</span></div>
         </div>
         <span class="module-weeks">3h + 2h async</span>
@@ -1143,7 +1321,7 @@
       <div class="module">
         <span class="module-num">S2</span>
         <div>
-          <div class="module-title">Maîtriser les Outils</div>
+          <div class="module-title">Faire le travail de trois personnes</div>
           <div class="module-desc">Prompting avancé · Claude vs ChatGPT vs Gemini · IA pour les docs, les données et les présentations · <span style="color:var(--accent);font-size:0.8rem;">Claude · NotebookLM · Julius AI · Gamma</span><br><span style="color:rgba(245,243,239,0.4);font-size:0.78rem;">Async : refaire une tâche récurrente (3h+) entièrement avec l'IA — avant/après en 3 slides</span></div>
         </div>
         <span class="module-weeks">3h + 2h async</span>
@@ -1151,7 +1329,7 @@
       <div class="module">
         <span class="module-num">S3</span>
         <div>
-          <div class="module-title">Automatiser son Travail — Partie 1</div>
+          <div class="module-title">Votre première automation (en live)</div>
           <div class="module-desc">Penser en workflows · Make vs N8N vs Zapier · connecter Gmail, Notion, Slack et des modèles IA sans coder · live build en temps réel · <span style="color:var(--accent);font-size:0.8rem;">Make · N8N · Claude · Notion</span><br><span style="color:rgba(245,243,239,0.4);font-size:0.78rem;">Async : première automatisation live (résumé newsletters, Notion depuis transcript…)</span></div>
         </div>
         <span class="module-weeks">3h + 2h async</span>
@@ -1159,7 +1337,7 @@
       <div class="module">
         <span class="module-num">S4</span>
         <div>
-          <div class="module-title">Automatiser son Travail — Partie 2</div>
+          <div class="module-title">Agents IA et pipelines multi-étapes</div>
           <div class="module-desc">Chaîner les automatisations · construire son premier agent IA · RAG en clair · pipeline multi-étapes · <span style="color:var(--accent);font-size:0.8rem;">Make · N8N · Claude API · Gmail · Notion · Slack</span><br><span style="color:rgba(245,243,239,0.4);font-size:0.78rem;">Async : automatisation 3 étapes min. + un modèle IA (veille concurrentielle, bot Slack, classification email…)</span></div>
         </div>
         <span class="module-weeks">3h + 2h async</span>
@@ -1167,7 +1345,7 @@
       <div class="module">
         <span class="module-num">☁️</span>
         <div>
-          <div class="module-title">Module Async — Penser Stratégiquement</div>
+          <div class="module-title">Module Async · Devenir le référent IA de votre boîte</div>
           <div class="module-desc">4 vidéos (~45 min) : audit de votre poste face à l'IA · produit IA & conversation avec les techs · business case & ROI · IA responsable, biais, RGPD · <span style="color:var(--accent);font-size:0.8rem;">Claude · Gamma</span><br><span style="color:rgba(245,243,239,0.4);font-size:0.78rem;">Livrable : pitch IA 5 slides pour votre entreprise réelle — devient votre présentation Demo Day</span></div>
         </div>
         <span class="module-weeks">~3h auto-formé</span>
@@ -1175,7 +1353,7 @@
       <div class="module">
         <span class="module-num">S5</span>
         <div>
-          <div class="module-title">Demo Day & Sprint Carrière</div>
+          <div class="module-title">Demo Day — présentez devant un jury tech</div>
           <div class="module-desc">Portfolio & personal brand · atelier post LinkedIn · présentations devant un jury de PMs, fondateurs et recruteurs partenaires · feedback & intros directes · <span style="color:var(--accent);font-size:0.8rem;">Stack libre</span></div>
         </div>
         <span class="module-weeks">3h session</span>
@@ -1231,23 +1409,23 @@
       <ul class="outcomes-list" style="margin-top: 2.5rem;">
         <li class="outcome-item">
           <div class="outcome-check">✓</div>
-          <p class="outcome-text"><strong>Un portfolio de 5 livrables</strong> concrets applicables dès lundi dans votre poste actuel.</p>
+          <p class="outcome-text"><strong>Avant :</strong> vous passez 4h à préparer un brief prospect. <strong>Après :</strong> votre automation le fait en 30 secondes.</p>
         </li>
         <li class="outcome-item">
           <div class="outcome-check">✓</div>
-          <p class="outcome-text"><strong>Un stack d'outils maîtrisés</strong> : Claude, ChatGPT, Perplexity, Make, N8N, et 10+ autres.</p>
+          <p class="outcome-text"><strong>Avant :</strong> vous regardez l'IA de loin. <strong>Après :</strong> vous présentez votre premier pipeline automatisé à votre manager.</p>
         </li>
         <li class="outcome-item">
           <div class="outcome-check">✓</div>
-          <p class="outcome-text"><strong>Accès direct aux meilleures boîtes tech</strong> parisiennes via notre réseau de partenaires recruteurs.</p>
+          <p class="outcome-text"><strong>Avant :</strong> "j'ai testé ChatGPT une fois". <strong>Après :</strong> vous maîtrisez Claude, GPT, Perplexity, Make, N8N et 10+ outils.</p>
         </li>
         <li class="outcome-item">
           <div class="outcome-check">✓</div>
-          <p class="outcome-text"><strong>Un certificat reconnu</strong> à mentionner sur votre LinkedIn et votre CV.</p>
+          <p class="outcome-text"><strong>Avant :</strong> vous cherchez un emploi. <strong>Après :</strong> vous arrivez en entretien avec un portfolio de 5 projets IA concrets.</p>
         </li>
         <li class="outcome-item">
           <div class="outcome-check">✓</div>
-          <p class="outcome-text"><strong>Accès à vie</strong> au slack de la communauté et aux mises à jour du programme.</p>
+          <p class="outcome-text"><strong>Avant :</strong> vous subissez le changement. <strong>Après :</strong> vous êtes celui qu'on appelle.</p>
         </li>
       </ul>
     </div>
@@ -1357,8 +1535,8 @@
 <!-- CTA -->
 <div id="inscription" class="cta-section">
   <div class="section-label" style="text-align:center">Candidature ouverte</div>
-  <h2>Prêt à prendre<br>de l'avance ?</h2>
-  <p>La prochaine session commence bientôt. <strong style="color:var(--white);">20 places au tarif de lancement à 999€.</strong> Laissez vos infos et on revient vers vous sous 48h.</p>
+  <h2>Le monde a changé.<br>Et vous ?</h2>
+  <p>La prochaine session commence bientôt. <strong style="color:var(--white);">20 places au tarif de lancement à 999€.</strong> Dans 5 semaines, vous serez la personne qu'on appelle quand il faut avancer sur l'IA.</p>
 
   <form id="apply-form" class="apply-form">
     <input id="apply-name"  class="apply-input" type="text"  placeholder="Prénom et nom"         required>
