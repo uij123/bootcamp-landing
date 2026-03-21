@@ -93,11 +93,15 @@
   .hero::before {
     content: '';
     position: absolute;
-    top: -200px; right: -200px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(200,80,60,0.12) 0%, transparent 70%);
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 65% at 85% 15%, rgba(99,102,241,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 15% 80%, rgba(6,182,212,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 45% at 60% 55%, rgba(168,85,247,0.10) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 0;
   }
+  .hero > * { position: relative; z-index: 1; }
 
   .hero-left {
     display: flex;
@@ -135,7 +139,10 @@
 
   h1 em {
     font-style: italic;
-    color: var(--accent);
+    background: linear-gradient(120deg, #f97316 0%, #ec4899 45%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .hero-desc {
@@ -320,8 +327,12 @@
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
     margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #818cf8, #22d3ee, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
   }
 
   h2 {
@@ -790,9 +801,23 @@
   .cta-section {
     text-align: center;
     border-top: 1px solid rgba(245,243,239,0.08);
-    background: linear-gradient(180deg, transparent, rgba(200,80,60,0.05));
     padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
   }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 110%, rgba(99,102,241,0.16) 0%, transparent 65%),
+      radial-gradient(ellipse 45% 50% at 10% 20%,  rgba(6,182,212,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 45% at 90% 10%,  rgba(168,85,247,0.10) 0%, transparent 65%),
+      linear-gradient(180deg, transparent 40%, rgba(99,102,241,0.04));
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cta-section > * { position: relative; z-index: 1; }
 
   .cta-section h2 {
     margin-bottom: 1.5rem;
@@ -867,6 +892,61 @@
   }
   .footer-links a:hover { color: var(--white); }
 
+  /* GRADIENT BLOBS */
+  .g-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+  .g-blob-1 {
+    width: 750px; height: 750px;
+    background: radial-gradient(circle at center, rgba(99,102,241,0.20), transparent 70%);
+    top: -200px; right: -180px;
+    animation: gb1 28s ease-in-out infinite alternate;
+  }
+  .g-blob-2 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle at center, rgba(6,182,212,0.16), transparent 70%);
+    top: 35%; left: -180px;
+    animation: gb2 34s ease-in-out infinite alternate;
+  }
+  .g-blob-3 {
+    width: 550px; height: 550px;
+    background: radial-gradient(circle at center, rgba(168,85,247,0.15), transparent 70%);
+    bottom: 15%; right: 0%;
+    animation: gb3 22s ease-in-out infinite alternate;
+  }
+  .g-blob-4 {
+    width: 450px; height: 450px;
+    background: radial-gradient(circle at center, rgba(20,184,166,0.12), transparent 70%);
+    top: 60%; right: 25%;
+    animation: gb4 38s ease-in-out infinite alternate;
+  }
+  @keyframes gb1 {
+    from { transform: translate(0, 0) scale(1);    }
+    to   { transform: translate(-70px, 110px) scale(1.12); }
+  }
+  @keyframes gb2 {
+    from { transform: translate(0, 0) scale(1);    }
+    to   { transform: translate(90px, -70px) scale(0.88); }
+  }
+  @keyframes gb3 {
+    from { transform: translate(0, 0) scale(1);    }
+    to   { transform: translate(-55px, -80px) scale(1.10); }
+  }
+  @keyframes gb4 {
+    from { transform: translate(0, 0) scale(1);    }
+    to   { transform: translate(65px, 75px) scale(0.90); }
+  }
+
+  /* Ensure content stacks above blobs */
+  nav, .hero, .strip, .built-by-wrapper, #programme,
+  .cta-section, footer,
+  div[style*="border-top"] { position: relative; z-index: 1; }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -905,6 +985,12 @@
 </style>
 </head>
 <body>
+
+<!-- GRADIENT BLOBS -->
+<div class="g-blob g-blob-1"></div>
+<div class="g-blob g-blob-2"></div>
+<div class="g-blob g-blob-3"></div>
+<div class="g-blob g-blob-4"></div>
 
 <!-- NAV -->
 <nav>
