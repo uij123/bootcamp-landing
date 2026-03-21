@@ -277,12 +277,21 @@
   /* STRIP */
   .strip {
     background: var(--accent);
-    padding: 1rem 3rem;
+    padding: 0.9rem 0;
+    overflow: hidden;
+  }
+  .strip-track {
     display: flex;
     align-items: center;
     gap: 3rem;
-    overflow: hidden;
     white-space: nowrap;
+    width: max-content;
+    animation: marquee-ltr 30s linear infinite;
+    padding: 0 1.5rem;
+  }
+  @keyframes marquee-ltr {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0%); }
   }
   .strip-text {
     font-family: var(--mono);
@@ -701,6 +710,82 @@
     margin-top: 0.05rem;
   }
 
+  /* BUILT BY */
+  .built-by-wrapper {
+    border-top: 1px solid rgba(245,243,239,0.08);
+    border-bottom: 1px solid rgba(245,243,239,0.08);
+    background: rgba(245,243,239,0.015);
+  }
+  .built-by-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .builder-card {
+    background: rgba(245,243,239,0.03);
+    border: 1px solid rgba(245,243,239,0.08);
+    border-radius: 3px;
+    padding: 2.5rem 2rem;
+    transition: border-color 0.2s;
+  }
+  .builder-card:hover { border-color: rgba(200,80,60,0.3); }
+  .builder-company {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .builder-role {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .builder-desc {
+    font-size: 0.88rem;
+    color: rgba(245,243,239,0.55);
+    line-height: 1.65;
+  }
+
+  /* APPLY FORM */
+  .apply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .apply-input {
+    background: rgba(245,243,239,0.06);
+    border: 1px solid rgba(245,243,239,0.12);
+    color: var(--white);
+    padding: 0.9rem 1.2rem;
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .apply-input::placeholder { color: rgba(245,243,239,0.3); }
+  .apply-input:focus { border-color: rgba(200,80,60,0.5); }
+  .apply-success {
+    background: rgba(45,74,62,0.3);
+    border: 1px solid var(--accent2);
+    border-radius: 3px;
+    padding: 2rem;
+    text-align: center;
+    color: #6db89a;
+    display: none;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
   /* CTA SECTION */
   .cta-section {
     text-align: center;
@@ -809,9 +894,7 @@
 
     section { padding: 4rem 1.5rem; }
 
-    .for-who-grid { grid-template-columns: 1fr; }
-    .persona { border-right: none; border-bottom: 1px solid rgba(245,243,239,0.08); }
-
+    .built-by-grid { grid-template-columns: 1fr; }
     .program-grid { grid-template-columns: 1fr; gap: 3rem; }
     .outcomes-wrapper { grid-template-columns: 1fr; gap: 3rem; }
     .testi-grid { grid-template-columns: 1fr; }
@@ -828,7 +911,7 @@
   <a href="#" class="logo">Fluent<span>AI</span></a>
   <ul class="nav-links">
     <li><a href="#programme">Programme</a></li>
-    <li><a href="#pour-qui">Pour qui ?</a></li>
+    <li><a href="#equipe">L'équipe</a></li>
     <li><a href="#tarifs">Tarifs</a></li>
     <li><a href="#inscription" class="nav-cta">Candidater →</a></li>
   </ul>
@@ -884,44 +967,62 @@
 
 <!-- STRIP -->
 <div class="strip">
-  <span class="strip-text">Fluent AI · Paris</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">5 semaines · ~25h total</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">3h session + 2h async / semaine</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">Paris 11e + Remote</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">Financement CPF possible</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">Places limitées · Candidature ouverte</span>
-  <span class="strip-dot"></span>
-  <span class="strip-text">Fluent AI · Paris</span>
-</div>
-
-<!-- POUR QUI -->
-<div id="pour-qui" class="for-who-wrapper">
-  <div class="for-who-grid">
-    <div class="persona">
-      <div class="persona-num">01</div>
-      <div class="persona-role">Le perdu de l'IA</div>
-      <h3 class="persona-title">Vous entendez parler d'IA tous les jours — et vous hochez la tête.</h3>
-      <p class="persona-desc">Manager, chargé de projet, marketeur : vous êtes compétent dans votre métier, mais l'IA vous semble hors de portée. Fluent AI vous donne un système concret pour l'intégrer dès demain dans vos tâches quotidiennes.</p>
-    </div>
-    <div class="persona">
-      <div class="persona-num">02</div>
-      <div class="persona-role">Celui qui veut rester irremplaçable</div>
-      <h3 class="persona-title">Votre boîte déploie des outils IA. Votre poste semble menacé.</h3>
-      <p class="persona-desc">La vraie protection, c'est de devenir la personne qui sait *orchestrer* ces outils — pas la subir. Apprenez à auditer votre poste, identifier ce que l'IA prend en charge, et développer les compétences à haute valeur ajoutée.</p>
-    </div>
-    <div class="persona">
-      <div class="persona-num">03</div>
-      <div class="persona-role">Le pivot vers la tech</div>
-      <h3 class="persona-title">Consulting, finance, droit : vous voulez rejoindre l'écosystème tech.</h3>
-      <p class="persona-desc">La maîtrise de l'IA est aujourd'hui le meilleur passeport pour entrer dans une scale-up ou une grande tech. Fluent AI vous donne le vocabulaire, les outils et les projets pour rendre votre profil crédible et distinctif.</p>
-    </div>
+  <div class="strip-track">
+    <span class="strip-text">Fluent AI · Paris</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">5 semaines · ~25h total</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">3h session + 2h async / semaine</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">Paris 11e + Remote</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">20 places · Offre de lancement à 999€</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">Candidature ouverte</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">Fluent AI · Paris</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">5 semaines · ~25h total</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">3h session + 2h async / semaine</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">Paris 11e + Remote</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">20 places · Offre de lancement à 999€</span>
+    <span class="strip-dot"></span>
+    <span class="strip-text">Candidature ouverte</span>
+    <span class="strip-dot"></span>
   </div>
 </div>
+
+<!-- BUILT BY -->
+<div id="equipe" class="built-by-wrapper">
+<section>
+  <div style="text-align:center; margin-bottom: 0;">
+    <div class="section-label" style="display:flex; justify-content:center;">Conçu par des praticiens</div>
+    <h2>Enseigné par ceux<br>qui le font au quotidien.</h2>
+    <p style="color:rgba(245,243,239,0.55); max-width:500px; margin: 0 auto; font-size:0.98rem; line-height:1.75;">Pas des formateurs professionnels. Trois personnes qui travaillent dans l'IA en ce moment même — et qui vous montrent comment ils le font vraiment.</p>
+  </div>
+  <div class="built-by-grid">
+    <div class="builder-card">
+      <div class="builder-company">Partech</div>
+      <div class="builder-role">Investment Professional</div>
+      <p class="builder-desc">Il évalue et finance des startups IA depuis leur seed. Il connaît le marché de l'intérieur, sait ce que les investisseurs regardent et vous donne la carte mentale que peu de gens ont.</p>
+    </div>
+    <div class="builder-card">
+      <div class="builder-company">Mistral AI</div>
+      <div class="builder-role">ML Engineer</div>
+      <p class="builder-desc">Il construit les modèles que vous utilisez tous les jours. Il traduit la complexité technique en compréhension actionnable — pour que vous sachiez exactement ce que l'IA peut et ne peut pas faire.</p>
+    </div>
+    <div class="builder-card">
+      <div class="builder-company">Neko Health</div>
+      <div class="builder-role">Product Leader</div>
+      <p class="builder-desc">Il pilote des produits IA à impact réel dans l'une des healthtech les plus ambitieuses du monde. Il vous apprend à penser en PM : comment évaluer un vendor, briefer un ingénieur, et construire un business case qui convainc.</p>
+    </div>
+  </div>
+</section>
+</div>
+
 
 <!-- PROGRAMME -->
 <section id="programme">
@@ -1138,21 +1239,21 @@
   <div class="section-label">Tarifs</div>
   <h2 style="text-align:center">Investissez dans<br>votre prochaine version.</h2>
   <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">Individuel</div>
-      <div class="price-amount">3 900€</div>
-      <div class="price-period">ou 3× 1 370€ — financement CPF possible</div>
+    <div class="price-card featured">
+      <div class="price-badge">20 premières places</div>
+      <div class="price-name">Offre de lancement</div>
+      <div class="price-amount">999€ <span style="font-size:1.2rem; color:var(--muted); text-decoration:line-through; font-family:var(--sans); font-weight:400;">2 000€</span></div>
+      <div class="price-period">Tarif réservé aux 20 premières inscriptions</div>
       <ul class="price-features">
         <li class="price-feature">Accès complet au programme 5 semaines</li>
-        <li class="price-feature">Projets pratiques & feedback</li>
+        <li class="price-feature">Projets pratiques & feedback individuel</li>
         <li class="price-feature">Accès à la communauté alumni</li>
         <li class="price-feature">Certificat Fluent AI</li>
         <li class="price-feature">Mises à jour du programme à vie</li>
       </ul>
       <a href="#inscription" class="btn-primary" style="width:100%; text-align:center; display:block;">Candidater →</a>
     </div>
-    <div class="price-card featured">
-      <div class="price-badge">Recommandé</div>
+    <div class="price-card">
       <div class="price-name">Entreprise</div>
       <div class="price-amount">Sur devis</div>
       <div class="price-period">À partir de 5 participants — session dédiée</div>
@@ -1161,7 +1262,6 @@
         <li class="price-feature">Formateurs dédiés à votre équipe</li>
         <li class="price-feature">Cas pratiques issus de votre entreprise</li>
         <li class="price-feature">Rapport d'impact post-formation</li>
-        <li class="price-feature">OPCO & budget formation 100% eligible</li>
       </ul>
       <a href="#inscription" class="btn-primary" style="width:100%; text-align:center; display:block;">Nous contacter →</a>
     </div>
@@ -1172,10 +1272,18 @@
 <div id="inscription" class="cta-section">
   <div class="section-label" style="text-align:center">Candidature ouverte</div>
   <h2>Prêt à prendre<br>de l'avance ?</h2>
-  <p>La prochaine session commence en septembre. Les places sont limitées à 20 participants. Laissez votre email et on revient vers vous sous 48h.</p>
-  <div class="cta-form">
-    <input type="email" class="cta-input" placeholder="votre@email.com">
-    <a href="#" class="btn-primary">Je candidate →</a>
+  <p>La prochaine session commence bientôt. <strong style="color:var(--white);">20 places au tarif de lancement à 999€.</strong> Laissez vos infos et on revient vers vous sous 48h.</p>
+
+  <form id="apply-form" class="apply-form">
+    <input id="apply-name"  class="apply-input" type="text"  placeholder="Prénom et nom"         required>
+    <input id="apply-email" class="apply-input" type="email" placeholder="votre@email.com"        required>
+    <input id="apply-role"  class="apply-input" type="text"  placeholder="Poste actuel & entreprise">
+    <button id="apply-btn" type="submit" class="btn-primary" style="width:100%; margin-top:0.4rem;">Je candidate →</button>
+  </form>
+
+  <div id="apply-success" class="apply-success">
+    ✓ Candidature reçue !<br>
+    <span style="font-size:0.88rem; color:rgba(109,184,154,0.8);">On revient vers vous sous 48h. En attendant, partagez Fluent AI à quelqu'un qui en a besoin.</span>
   </div>
 </div>
 
@@ -1192,6 +1300,74 @@
     <li><a href="#">Mentions légales</a></li>
   </ul>
 </footer>
+
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // SUPABASE SETUP — fill in your credentials:
+  //
+  //  1. Go to supabase.com → New project
+  //  2. Run this SQL in the SQL editor:
+  //
+  //     create table applications (
+  //       id         uuid primary key default gen_random_uuid(),
+  //       name       text,
+  //       email      text,
+  //       role       text,
+  //       created_at timestamptz default now()
+  //     );
+  //     alter table applications enable row level security;
+  //     create policy "allow insert" on applications
+  //       for insert to anon with check (true);
+  //
+  //  3. For email alerts when someone applies:
+  //     Supabase dashboard → Database → Webhooks → New webhook
+  //     → trigger on INSERT on "applications"
+  //     → point to your Make/N8N/Zapier webhook URL
+  //     → the webhook sends you an email with the applicant's details
+  //
+  //  4. Paste your project URL and anon key below:
+  // ─────────────────────────────────────────────────────────────
+  const SUPABASE_URL      = 'YOUR_SUPABASE_URL';       // e.g. https://xxxx.supabase.co
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';  // safe to expose client-side
+
+  document.getElementById('apply-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('apply-btn');
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+
+    const payload = {
+      name:  document.getElementById('apply-name').value.trim(),
+      email: document.getElementById('apply-email').value.trim(),
+      role:  document.getElementById('apply-role').value.trim(),
+    };
+
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer':        'return=minimal',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok || res.status === 201) {
+        document.getElementById('apply-form').style.display = 'none';
+        document.getElementById('apply-success').style.display = 'block';
+      } else {
+        throw new Error('HTTP ' + res.status);
+      }
+    } catch (err) {
+      console.error(err);
+      btn.textContent = 'Je candidate →';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Réessayez ou écrivez-nous directement.');
+    }
+  });
+</script>
 
 </body>
 </html>
