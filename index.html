@@ -85,7 +85,8 @@
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-top: 80px;
+    padding-top: 65px;
+    max-width: 100%;
     position: relative;
     overflow: hidden;
   }
@@ -106,8 +107,8 @@
   .hero-left {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 6rem 3rem 6rem 4rem;
+    justify-content: flex-start;
+    padding: 3rem 3rem 3rem 4rem;
   }
 
   .eyebrow {
@@ -936,7 +937,7 @@
   }
 
   /* Ensure content stacks above blobs */
-  nav, .hero, .strip, .ttf-wrapper, .built-by-wrapper, #programme,
+  .hero, .strip, .ttf-wrapper, .built-by-wrapper, #programme,
   .cta-section, footer,
   div[style*="border-top"] { position: relative; z-index: 1; }
 
@@ -1066,10 +1067,21 @@
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
 
-    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
-    .hero-left { padding: 2rem 0; }
-    .hero-right { padding: 0; }
-    .hero-stats { gap: 2rem; }
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 71px 1.5rem 0;
+    }
+    .hero-left {
+      padding: 0 0 2rem;
+      justify-content: flex-start;
+    }
+    .hero-left .eyebrow { margin-bottom: 1.2rem; }
+    .hero-right { display: none; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; margin-top: 2.5rem; }
+    .stat-num { font-size: 1.8rem; }
+
+    h1 { font-size: clamp(2.4rem, 9vw, 3.2rem); }
 
     section { padding: 4rem 1.5rem; }
 
@@ -1083,7 +1095,12 @@
     .testi-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
 
+    .cta-section { padding: 5rem 1.5rem; }
+    .cta-form { flex-direction: column; }
+    .cta-input, .cta-form .btn-primary { width: 100%; }
+
     footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1.2rem; }
   }
 </style>
 </head>
@@ -1107,7 +1124,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="max-width:100%; padding: 80px 0 0;">
+<section class="hero">
   <div class="hero-left">
     <div class="eyebrow fade-up">Paris · Bootcamp IA · Fluent AI</div>
     <h1 class="fade-up delay-1">L'IA ne vous<br>remplacera pas.<br><em>Mais ceux qui<br>la maîtrisent, oui.</em></h1>
