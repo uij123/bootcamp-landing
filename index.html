@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fluent AI — Le bootcamp IA pour les pros</title>
+<title>Déclic AI — Le bootcamp IA pour les pros</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230a0a0a'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-style='italic' fill='%23c8503c' text-anchor='middle'>D</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
@@ -1042,10 +1043,8 @@
     margin: 0 auto;
   }
   .ttf-closing em {
-    background: linear-gradient(120deg, #f97316 0%, #ec4899 45%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
+    font-style: italic;
   }
 
   /* MACRO CALLOUT */
@@ -1061,6 +1060,54 @@
     color: rgba(245,243,239,0.7);
     line-height: 1.75;
   }
+
+  /* VIDEO EMBED */
+  .video-section {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .video-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  .video-quote strong { font-style: normal; color: var(--accent); }
+  .video-attribution {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid rgba(245,243,239,0.1);
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .video-context {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: rgba(245,243,239,0.6);
+    line-height: 1.7;
+  }
+  .video-context strong { color: var(--white); }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -1114,7 +1161,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Fluent<span>AI</span></a>
+  <a href="#" class="logo">Déclic<span>AI</span></a>
   <ul class="nav-links">
     <li><a href="#programme">Programme</a></li>
     <li><a href="#equipe">L'équipe</a></li>
@@ -1126,9 +1173,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="eyebrow fade-up">Paris · Bootcamp IA · Fluent AI</div>
+    <div class="eyebrow fade-up">Paris · Bootcamp IA · Déclic AI</div>
     <h1 class="fade-up delay-1">L'IA ne vous<br>remplacera pas.<br><em>Mais ceux qui<br>la maîtrisent, oui.</em></h1>
-    <p class="hero-desc fade-up delay-2">Vous entendez parler de Claude Code, de GPT, d'agents IA, de MCP. Vous voyez les licenciements chez Block, les prédictions de Citrini, l'essai viral de Shumer. Vous sentez que ça bouge — mais vous ne savez pas par où commencer.<br><br>Fluent AI est le bootcamp qui vous fait passer de spectateur à opérationnel en 5 semaines — sans écrire une ligne de code.</p>
+    <p class="hero-desc fade-up delay-2">GPT-5, agents IA, MCP, vibe coding… Le monde du travail change à une vitesse que personne n'avait prévue.<br><br>Vous le sentez. Mais vous ne savez pas par où commencer.<br><br>Déclic est le bootcamp qui vous rend opérationnel en 5 semaines — sans écrire une seule ligne de code.</p>
     <div class="hero-actions fade-up delay-3">
       <a href="#inscription" class="btn-primary">Candidater à la prochaine session →</a>
       <span class="btn-ghost">Voir le programme</span>
@@ -1178,7 +1225,7 @@
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-track">
-    <span class="strip-text">Fluent AI · Paris</span>
+    <span class="strip-text">Déclic AI · Paris</span>
     <span class="strip-dot"></span>
     <span class="strip-text">5 semaines · ~25h total</span>
     <span class="strip-dot"></span>
@@ -1190,7 +1237,7 @@
     <span class="strip-dot"></span>
     <span class="strip-text">Candidature ouverte</span>
     <span class="strip-dot"></span>
-    <span class="strip-text">Fluent AI · Paris</span>
+    <span class="strip-text">Déclic AI · Paris</span>
     <span class="strip-dot"></span>
     <span class="strip-text">5 semaines · ~25h total</span>
     <span class="strip-dot"></span>
@@ -1261,10 +1308,13 @@
 <!-- MACRO CONTEXT CALLOUT -->
 <div style="position: relative; z-index: 1;">
 <section style="padding: 4rem 4rem;">
-  <div class="macro-callout">
-    <p>En février 2026, l'essai de Matt Shumer <em>"Something Big Is Happening"</em> a été vu 85 millions de fois. Le mémo de Citrini Research a fait chuter les marchés. Block a licencié 4 000 personnes. Meta prépare la suite.</p>
-    <p style="margin-top:1rem; color: var(--white); font-weight: 600;">Ce n'est plus de la prospective. C'est le présent.</p>
-    <p style="margin-top:0.5rem;">Ceux qui s'y mettent maintenant prennent une avance que les autres mettront des mois à rattraper.</p>
+  <div class="video-section">
+    <p class="video-quote">"You're not going to lose your job to AI —<br>but you'll lose it to <strong>someone who uses AI</strong>."</p>
+    <p class="video-attribution">Jensen Huang · CEO, NVIDIA</p>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/v9csjiPSyS0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="video-context">Ce n'est plus de la prospective. C'est le présent.<br><strong>Ceux qui s'y mettent maintenant prennent une avance que les autres mettront des mois à rattraper.</strong></p>
   </div>
 </section>
 </div>
@@ -1416,7 +1466,7 @@
         </div>
         <div class="ov-bar-item">
           <div class="ov-bar-top">
-            <span>Recommanderaient Fluent AI</span>
+            <span>Recommanderaient Déclic AI</span>
             <span>92%</span>
           </div>
           <div class="ov-bar-track"><div class="ov-bar-fill" style="width:92%"></div></div>
@@ -1456,7 +1506,7 @@
         <li class="price-feature">Accès complet au programme 5 semaines</li>
         <li class="price-feature">Projets pratiques & feedback individuel</li>
         <li class="price-feature">Accès à la communauté alumni</li>
-        <li class="price-feature">Certificat Fluent AI</li>
+        <li class="price-feature">Certificat Déclic AI</li>
         <li class="price-feature">Mises à jour du programme à vie</li>
       </ul>
       <a href="#inscription" class="btn-primary" style="width:100%; text-align:center; display:block;">Candidater →</a>
@@ -1491,14 +1541,14 @@
 
   <div id="apply-success" class="apply-success">
     ✓ Candidature reçue !<br>
-    <span style="font-size:0.88rem; color:rgba(109,184,154,0.8);">On revient vers vous sous 48h. En attendant, partagez Fluent AI à quelqu'un qui en a besoin.</span>
+    <span style="font-size:0.88rem; color:rgba(109,184,154,0.8);">On revient vers vous sous 48h. En attendant, partagez Déclic AI à quelqu'un qui en a besoin.</span>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-left">
-    <a href="#" class="logo" style="font-size:1.2rem">Fluent<span>AI</span></a>
+    <a href="#" class="logo" style="font-size:1.2rem">Déclic<span>AI</span></a>
     <span class="footer-tagline">Le bootcamp IA pour les pros non-techniques · Paris</span>
   </div>
   <ul class="footer-links">
