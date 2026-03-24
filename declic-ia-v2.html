@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DÃ©clic IA â Reprenez le contrÃ´le</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0a;
+  --cream:#f5f0e8;
+  --warm:#e8dfd3;
+  --accent:#c45d3e;
+  --accent-light:#e07a5f;
+  --muted:#8a8078;
+  --card:#1a1917;
+  --card-border:#2a2825;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--ink);color:var(--cream);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:var(--cream)}
+
+.container{max-width:1080px;margin:0 auto;padding:0 2rem}
+.section{padding:7rem 0}
+.section--cream{background:var(--cream);color:var(--ink)}
+.section--warm{background:var(--warm);color:var(--ink)}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:block}
+
+/* âââ REVEAL âââ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+/* âââ NAV âââ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);background:rgba(10,10,10,.82);border-bottom:1px solid rgba(255,255,255,.05)}
+.nav-logo{font-family:var(--serif);font-size:1.3rem;color:var(--cream);text-decoration:none;letter-spacing:-.02em}
+.nav-logo em{font-style:italic;color:var(--accent)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-size:.84rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--cream)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.5rem;border-radius:100px;font-size:.84rem;font-weight:500;text-decoration:none;transition:all .22s;cursor:pointer;border:none;font-family:var(--sans)}
+.btn--primary{background:var(--accent);color:var(--cream)}
+.btn--primary:hover{background:var(--accent-light);transform:translateY(-1px)}
+.btn--outline{border:1px solid var(--card-border);color:var(--cream);background:transparent}
+.btn--outline:hover{border-color:var(--cream)}
+.btn--dark{background:var(--ink);color:var(--cream)}
+.btn--dark:hover{background:#1a1a1a}
+.btn--lg{padding:.85rem 2rem;font-size:.92rem}
+
+/* âââ HERO âââ */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:5rem}
+.hero-eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;display:flex;align-items:center;gap:.7rem}
+.hero-eyebrow::before{content:'';width:1.5rem;height:1px;background:var(--accent)}
+.hero h1{font-family:var(--serif);font-size:clamp(2.6rem,5.5vw,4.5rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:1.8rem;max-width:860px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+
+/* rotating words */
+.rotate-wrap{display:inline-block;position:relative;vertical-align:bottom;overflow:hidden;height:1.15em;min-width:160px}
+.rotate-wrap .rw{position:absolute;top:0;left:0;opacity:0;transform:translateY(100%);transition:all .45s cubic-bezier(.4,0,.2,1);white-space:nowrap;color:var(--accent)}
+.rotate-wrap .rw.on{opacity:1;transform:translateY(0)}
+.rotate-wrap .rw.off{opacity:0;transform:translateY(-100%)}
+
+.hero-sub{font-size:1.1rem;color:var(--muted);max-width:540px;margin-bottom:2.2rem}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+
+/* stars + social proof */
+.hero-proof{display:flex;align-items:center;gap:1.2rem}
+.hero-avatars{display:flex}
+.hero-avatars img{width:36px;height:36px;border-radius:50%;border:2px solid var(--ink);margin-left:-8px;object-fit:cover;background:var(--card)}
+.hero-avatars img:first-child{margin-left:0}
+.hero-stars{color:var(--accent);font-size:.95rem;letter-spacing:2px;margin-bottom:.15rem}
+.hero-proof-text{font-size:.82rem;color:var(--muted)}
+.hero-proof-text strong{color:var(--cream);font-weight:500}
+
+/* âââ THREE PROMISES (rotating headlines) âââ */
+.promises{padding:5rem 0;border-bottom:1px solid var(--card-border)}
+.promises h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;letter-spacing:-.02em;margin-bottom:1rem}
+.promises h2 .rotate-wrap{min-width:220px}
+.promises p{color:var(--muted);font-size:1rem;max-width:520px}
+
+/* âââ LONG STORY SECTIONS âââ */
+.story{max-width:680px}
+.story h2{font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.8rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:2rem}
+.story h2 em{font-style:italic;color:var(--accent)}
+.story p{font-size:1.02rem;line-height:1.85;margin-bottom:1.4rem}
+.story p.lead{color:var(--cream);font-size:1.08rem}
+.story p.body{color:var(--muted)}
+.section--cream .story p.lead{color:var(--ink)}
+.section--cream .story p.body{color:#5a5550}
+.story .pull-quote{border-left:3px solid var(--accent);padding-left:1.5rem;margin:2.5rem 0;font-family:var(--serif);font-size:1.25rem;line-height:1.5;color:var(--cream);font-style:italic}
+.section--cream .story .pull-quote{color:var(--ink)}
+
+/* âââ TESTIMONIALS âââ */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2.5rem}
+.testi-card{padding:2rem;border-radius:14px;background:var(--card);border:1px solid var(--card-border)}
+.testi-card blockquote{font-size:.93rem;line-height:1.75;color:var(--muted);margin-bottom:1.2rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:.7rem}
+.testi-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#333}
+.testi-name{font-weight:500;font-size:.88rem}
+.testi-role{font-size:.78rem;color:var(--muted)}
+.logo-bar{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:center;justify-content:center;margin-top:3rem}
+.logo-bar img{height:22px;opacity:.45;filter:grayscale(1);transition:all .3s}
+.logo-bar img:hover{opacity:.8;filter:grayscale(0)}
+/* placeholder if no logos yet */
+.logo-bar span{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);opacity:.5}
+
+/* âââ TEAM âââ */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3rem}
+.team-card{text-align:center}
+.team-photo{width:160px;height:160px;border-radius:50%;margin:0 auto 1.5rem;overflow:hidden;background:var(--card);border:3px solid var(--card-border)}
+.team-photo img{width:100%;height:100%;object-fit:cover}
+/* placeholder initials when no photo */
+.team-photo .initials{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.8rem;font-style:italic;color:var(--cream)}
+.section--cream .team-photo{border-color:#c8c0b5;background:var(--warm)}
+.section--cream .team-photo .initials{color:var(--ink)}
+.team-card h4{font-size:1.1rem;margin-bottom:.25rem;font-weight:500}
+.team-card .team-role{font-size:.84rem;color:var(--muted);margin-bottom:.75rem}
+.team-logos{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.team-logos img{height:18px;opacity:.6}
+.team-logos span{font-family:var(--mono);font-size:.65rem;padding:.25rem .6rem;border-radius:100px;border:1px solid var(--card-border);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.section--cream .team-logos span{border-color:#c8c0b5;color:#6a6460}
+.team-card p.team-bio{font-size:.9rem;color:var(--muted);line-height:1.7;text-align:left;margin-top:.5rem}
+.section--cream .team-card p.team-bio{color:#5a5550}
+.team-card .team-quote{font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--muted);line-height:1.6;text-align:left;margin-top:1rem;padding:1rem;background:rgba(0,0,0,.03);border-radius:10px}
+
+/* âââ CURRICULUM âââ */
+.curric-list{margin-top:2.5rem;max-width:760px}
+.curric-mod{border-bottom:1px solid var(--card-border)}
+.curric-hd{display:flex;align-items:center;gap:1.2rem;padding:1.6rem 0;cursor:pointer;transition:color .2s}
+.curric-hd:hover{color:var(--accent)}
+.curric-num{font-family:var(--mono);font-size:.78rem;color:var(--accent);width:2rem;flex-shrink:0}
+.curric-title{font-family:var(--serif);font-size:1.2rem;flex:1;letter-spacing:-.01em}
+.curric-tog{width:26px;height:26px;border-radius:50%;border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s;flex-shrink:0;color:var(--muted)}
+.curric-mod.open .curric-tog{transform:rotate(45deg);border-color:var(--accent);color:var(--accent)}
+.curric-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.curric-mod.open .curric-body{max-height:500px}
+.curric-inner{padding:0 0 1.8rem 3.2rem}
+.curric-inner p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:.6rem}
+.curric-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}
+.curric-tags span{font-family:var(--mono);font-size:.68rem;padding:.25rem .55rem;border-radius:100px;background:rgba(196,93,62,.1);color:var(--accent-light);letter-spacing:.03em}
+
+/* âââ TAKEAWAYS âââ */
+.take-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem}
+.take-item{padding:1.6rem;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:all .25s}
+.take-item:hover{background:rgba(255,255,255,.07);transform:translateY(-2px)}
+.take-icon{font-size:1.4rem;margin-bottom:.7rem}
+.take-item h4{font-size:.95rem;margin-bottom:.35rem;font-weight:500}
+.take-item p{font-size:.84rem;color:var(--muted);line-height:1.6}
+
+/* âââ PRICING âââ */
+.price-card{max-width:500px;margin:2.5rem auto 0;padding:2.8rem;border-radius:18px;background:var(--card);border:1px solid var(--card-border);text-align:center}
+.price-card h3{font-family:var(--serif);font-size:1.8rem;margin-bottom:.4rem}
+.price-amt{font-family:var(--serif);font-size:3.2rem;margin:1.2rem 0;letter-spacing:-.04em}
+.price-amt span{font-size:1.1rem;color:var(--muted);font-family:var(--sans)}
+.price-list{text-align:left;margin:1.8rem 0;list-style:none}
+.price-list li{font-size:.88rem;color:var(--muted);padding:.45rem 0 .45rem 1.5rem;position:relative}
+.price-list li::before{content:'â';position:absolute;left:0;color:var(--accent)}
+
+/* âââ QUOTE BLOCK âââ */
+.quote-block{text-align:center;padding:5rem 2rem}
+.quote-block p.qt{font-family:var(--serif);font-size:clamp(1.4rem,2.8vw,2rem);font-style:italic;line-height:1.4;max-width:660px;margin:0 auto 1.2rem;letter-spacing:-.01em}
+.quote-block p.qa{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* meme / humor image placeholder */
+.meme-block{text-align:center;padding:2rem;margin:2rem 0;border:2px dashed var(--card-border);border-radius:16px;color:var(--muted);font-size:.85rem}
+
+/* âââ FINAL CTA âââ */
+.final-cta{text-align:center;padding:7rem 2rem}
+.final-cta h2{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.1;letter-spacing:-.03em;margin-bottom:1.3rem;max-width:650px;margin-left:auto;margin-right:auto}
+.final-cta h2 em{font-style:italic;color:var(--accent)}
+.final-cta p{color:var(--muted);max-width:460px;margin:0 auto 2rem;font-size:1rem}
+
+footer{padding:2.5rem 2rem;border-top:1px solid var(--card-border);text-align:center}
+footer p{font-size:.78rem;color:var(--muted)}
+
+@media(max-width:768px){
+  .nav-links a:not(.btn){display:none}
+  .hero h1{font-size:2.2rem}
+  .team-grid{grid-template-columns:1fr;gap:3rem}
+  .testi-grid{grid-template-columns:1fr}
+  .section{padding:4.5rem 0}
+  .hero-proof{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .promises h2{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">DÃ©clic <em>IA</em></a>
+  <div class="nav-links">
+    <a href="#programme">Programme</a>
+    <a href="#temoignages">TÃ©moignages</a>
+    <a href="#equipe">Ãquipe</a>
+    <a href="#inscription" class="btn btn--primary">Rejoindre le bootcamp</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow reveal">Bootcamp Â· 4 semaines Â· En ligne</div>
+    <h1 class="reveal reveal-d1">
+      Vous sentez que vous pourriez faire plus avec l'IA.<br>
+      Reprenez le contrÃ´le, faites de l'IA votre <em>co-pilote.</em>
+    </h1>
+    <p class="hero-sub reveal reveal-d2">Vous ne savez pas par oÃ¹ commencer, vous vous sentez submergÃ©. En 4 semaines, on vous donne les clÃ©s â concrÃ¨tement.</p>
+    <div class="hero-ctas reveal reveal-d3">
+      <a href="#inscription" class="btn btn--primary btn--lg">RÃ©server ma place â</a>
+      <a href="#programme" class="btn btn--outline">DÃ©couvrir le programme</a>
+    </div>
+    <div class="hero-proof reveal reveal-d4">
+      <!-- REPLACE: real photos of alumni/clients -->
+      <div class="hero-avatars">
+        <img src="" alt="S" onerror="this.style.background='#e07a5f';this.alt='S'">
+        <img src="" alt="T" onerror="this.style.background='#81b29a';this.alt='T'">
+        <img src="" alt="E" onerror="this.style.background='#f2cc8f';this.alt='E'">
+        <img src="" alt="H" onerror="this.style.background='#a8a4ce';this.alt='H'">
+        <img src="" alt="W" onerror="this.style.background='#e8dfd3';this.alt='W'">
+      </div>
+      <div>
+        <div class="hero-stars">âââââ</div>
+        <div class="hero-proof-text"><strong>5/5</strong> â 50+ professionnels formÃ©s</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PROMISES -->
+<section class="promises">
+  <div class="container">
+    <h2 class="reveal">
+      Ne perdez plus de temps sur vos <span class="rotate-wrap" id="rot1"><span class="rw on">mails</span><span class="rw">slides</span><span class="rw">excels</span><span class="rw">rapports</span></span>
+    </h2>
+    <h2 class="reveal reveal-d1">
+      Automatisez votre <span class="rotate-wrap" id="rot2"><span class="rw on">outreach</span><span class="rw">production</span><span class="rw">analyse</span><span class="rw">prospection</span></span>
+    </h2>
+    <h2 class="reveal reveal-d2">Construisez enfin le projet auquel vous pensez depuis des annÃ©es.</h2>
+  </div>
+</section>
+
+<!-- LE CONSTAT -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="story">
+      <span class="label reveal">Pour quoi, pour qui on fait Ã§a ?</span>
+      <h2 class="reveal reveal-d1">On est partis d'un <em>constat simple.</em></h2>
+
+      <p class="lead reveal reveal-d2">D'un cÃ´tÃ©, on passe 80-90% de notre temps Ã  travailler avec l'IA, qui a multipliÃ© notre productivitÃ© par 10 sur certaines tÃ¢ches â production de documents de recherche, de prÃ©sentations PowerPoint, d'analyses financiÃ¨res et de modÃ¨les Excel â et en a carrÃ©ment supprimÃ© d'autres : identification d'opportunitÃ©s commerciales, prospection multicanal, prise de notes, entrÃ©e des donnÃ©es dans le CRM.</p>
+
+      <p class="body reveal">De l'autre, on voyait nos parents, nos amis, nos collÃ¨gues passer du temps sur des tÃ¢ches inutiles, faire des erreurs lÃ  oÃ¹ il n'y a plus lieu d'en faire. Ils connaissent l'IA, bien sÃ»r, ils utilisent les chatbots comme une version amÃ©liorÃ©e de Google et leur dÃ©lÃ¨guent mÃªme parfois des tÃ¢ches de rÃ©daction â mais n'en exploitent que la pointe immergÃ©e de l'iceberg.</p>
+
+      <p class="body reveal">Ils n'avaient pas le temps de faire le tri de l'information, pas le temps de s'Ã©carter des tÃ¢ches du quotidien.</p>
+
+      <div class="pull-quote reveal">Alors on a commencÃ© par lÃ . On a pris nos parents, nos potes, nos sÅurs, nos frÃ¨res, nos meufs et on leur a montrÃ© ce qu'ils pouvaient faire.</div>
+
+      <p class="body reveal">On a montrÃ© aux Ã©quipes de crÃ©a comment elles pouvaient accÃ©lÃ©rer leurs itÃ©rations produit. Aux commerciaux comment ils pouvaient automatiser l'identification de leads et la prospection. Comment ils pouvaient tous automatiser la crÃ©ation de slides aux normes / charte graphique de leur entreprise. Aux Ã©quipes de marketing et de finance comment elles pouvaient automatiser et accÃ©lÃ©rer la crÃ©ation de rapports et d'analyses en restant dans Excel. Comment ils pouvaient automatiser le traitement de leurs mails, la prise de notes pendant leurs calls. Comment ils pouvaient crÃ©er des automatisations pour les tÃ¢ches rÃ©currentes qui rendaient parfois leur quotidien frustrant. Comment les plus chevronnÃ©s d'entre eux pouvaient crÃ©er des solutions taillÃ©es sur mesure pour les besoins de leurs Ã©quipes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOTRE CONVICTION -->
+<section class="section">
+  <div class="container">
+    <div class="story">
+      <span class="label reveal">Notre conviction</span>
+      <h2 class="reveal reveal-d1">Personne ne sera remplacÃ© par l'IA. En revanche, ceux qui ne se mettront pas Ã  la page <em>ne seront plus compÃ©titifs.</em></h2>
+
+      <p class="body reveal">Si certains oiseaux de mauvais augure essayent d'expliquer que l'IA va remplacer tous les travailleurs en col blanc, nous n'y croyons pas. La preuve : les dynamiques de recrutement, mÃªme des entreprises qui la font. Jensen Huang qui dit que l'IA va nous faire bosser plus. Ce dont nous sommes sÃ»rs en revanche, c'est qu'il y a des gains de productivitÃ© majeurs Ã  aller chercher. Le travailleur de demain ne travaillera pas comme celui d'hier.</p>
+
+      <div class="pull-quote reveal">Il ne tient qu'Ã  vous de devenir la rÃ©fÃ©rence IA de votre entourage, de votre famille, de votre Ã©quipe.</div>
+
+      <p class="body reveal">Et c'est une bonne chose â vous pourrez dÃ©lÃ©guer toutes les parties de votre mÃ©tier que vous n'aimez pas pour vous concentrer sur l'essentiel. C'est une bonne chose parce que l'horizon des possibles vient de s'Ã©tendre drastiquement. Toutes les idÃ©es que vous avez eues mais que vous n'aviez pas pu rÃ©aliser, par manque de temps, de compÃ©tences techniques, sont maintenant, plus que jamais, Ã  votre portÃ©e.</p>
+
+      <p class="body reveal">Vous sentez qu'il se passe quelque chose, qu'il y a une opportunitÃ© Ã  saisir, que vous pourriez tirer plus de ce petit chatbot. Oui, Ã§a peut paraÃ®tre intimidant â la diarrhÃ©e verbale que cette vague technologique inspire est excessive, le flot constant d'informations et d'innovations nouvelles est tel qu'il est difficile d'y voir clair, de savoir par oÃ¹ commencer, de savoir mÃªme ce qui est possible, lÃ  oÃ¹ on pourrait l'utiliser.</p>
+
+      <p class="body reveal">Nous sommes passÃ©s par lÃ . Nous avons passÃ© des milliers d'heures â littÃ©ralement â Ã  lire, apprendre, tester, nous planter, comprendre, nous planter encore, pour distiller l'information, distinguer l'utile du superflu, le discours marketing du concret.</p>
+
+      <div class="pull-quote reveal">On a eu le dÃ©clic et maintenant l'IA fait partie de notre quotidien â du traitement de nos emails aux rÃ©servations de nos vacances en passant par la crÃ©ation de solutions sur mesure pour automatiser des pans entiers de notre travail. Le rÃ©sultat ? J'aimerais dire qu'on bosse moins â Ã§a pourrait Ãªtre le cas â mais la rÃ©alitÃ© c'est que l'IA nous a rÃ©conciliÃ©s avec notre travail en nous soulageant des tÃ¢ches d'intendance. Et du coup, on bosse plus et on est 10x plus productifs.</div>
+
+      <p class="lead reveal" style="font-size:1.15rem">On a eu le dÃ©clic. On veut vous le transmettre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TÃMOIGNAGES -->
+<section class="section section--warm" id="temoignages">
+  <div class="container">
+    <span class="label reveal">TÃ©moignages</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.15;letter-spacing:-.02em" class="reveal reveal-d1">Ils ont eu le <em style="font-style:italic;color:var(--accent)">dÃ©clic.</em></h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <blockquote>"[TÃ©moignage de Sylvain Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <!-- REPLACE: photo de Sylvain -->
+          <img class="testi-avatar" src="" alt="Sylvain" onerror="this.style.background='#e07a5f'">
+          <div>
+            <div class="testi-name">Sylvain</div>
+            <div class="testi-role">EY-Parthenon / Pelicam</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d1">
+        <blockquote>"[TÃ©moignage de Thomas Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="Thomas" onerror="this.style.background='#81b29a'">
+          <div>
+            <div class="testi-name">Thomas</div>
+            <div class="testi-role">BCG / Revolut</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d2">
+        <blockquote>"[TÃ©moignage de Sophie-Louise Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="Sophie-Louise" onerror="this.style.background='#f2cc8f'">
+          <div>
+            <div class="testi-name">Sophie-Louise</div>
+            <div class="testi-role">OnePoint</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d3">
+        <blockquote>"[TÃ©moignage d'Eloi Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="Eloi" onerror="this.style.background='#a8a4ce'">
+          <div>
+            <div class="testi-name">Eloi</div>
+            <div class="testi-role">Morningstar</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <blockquote>"[TÃ©moignage de Thibaut Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="Thibaut" onerror="this.style.background='#81b29a'">
+          <div>
+            <div class="testi-name">Thibaut</div>
+            <div class="testi-role">Ãtat</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d1">
+        <blockquote>"[TÃ©moignage de Hugues/Julien Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="Hugues" onerror="this.style.background='#e8dfd3'">
+          <div>
+            <div class="testi-name">Hugues & Julien</div>
+            <div class="testi-role">TÃ¶nnies</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d2">
+        <blockquote>"[TÃ©moignage de William Ã  insÃ©rer]"</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar" src="" alt="William" onerror="this.style.background='#c45d3e'">
+          <div>
+            <div class="testi-name">William</div>
+            <div class="testi-role">Balasany</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGOS BAR â REPLACE with actual company logo images -->
+    <div class="logo-bar reveal">
+      <!-- <img src="logos/ey.svg" alt="EY-Parthenon"> -->
+      <span>EY-Parthenon</span>
+      <span>BCG</span>
+      <span>Revolut</span>
+      <span>OnePoint</span>
+      <span>Morningstar</span>
+      <span>TÃ¶nnies</span>
+      <span>Balasany</span>
+    </div>
+  </div>
+</section>
+
+<!-- ÃQUIPE -->
+<section class="section section--cream" id="equipe">
+  <div class="container">
+    <span class="label reveal">Qui sommes-nous ?</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:.5rem" class="reveal reveal-d1">Trois profils, une <em style="font-style:italic;color:var(--accent)">obsession.</em></h2>
+
+    <div class="team-grid">
+
+      <!-- LOUIS -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <!-- REPLACE: photo de Louis -->
+          <!-- <img src="photos/louis.jpg" alt="Louis Dessal"> -->
+          <div class="initials">L</div>
+        </div>
+        <h4>Louis Dessal</h4>
+        <p class="team-role">Investisseur â Growth Equity</p>
+        <div class="team-logos">
+          <!-- REPLACE: logo images -->
+          <span>Partech</span><span>PJT Partners</span><span>HEC</span>
+        </div>
+        <p class="team-bio">Chez Partech Partners, Louis a passÃ© les 6 premiÃ¨res annÃ©es de sa vie professionnelle Ã  suivre et investir dans la tech. Il a vu l'IA Ã©merger, s'en sert au quotidien professionnellement et personnellement. C'est au contact d'entrepreneurs de premier plan, Ã  la pointe de l'utilisation de l'IA, que Louis a eu le dÃ©clic.</p>
+        <div class="team-quote">"J'Ã©tais Ã  un dÃ®ner avec des entrepreneurs. Ã ma droite, l'un d'eux m'explique comment il a crÃ©Ã© une organisation d'agents IA dÃ©veloppeurs calquÃ©e sur son Ã©quipe â la productivitÃ© de ses devs multipliÃ©e par 100. De l'autre, un entrepreneur m'explique qu'il n'arrive pas Ã  faire adopter l'IA par ses Ã©quipes, qu'il va devoir faire venir des coachs et des consultants, et qu'il devra sans doute faire le tri entre ceux qui l'utilisent et ceux qui ne l'utilisent pas."</div>
+      </div>
+
+      <!-- VALENTIN -->
+      <div class="team-card reveal reveal-d1">
+        <div class="team-photo">
+          <!-- REPLACE: photo de Valentin -->
+          <!-- <img src="photos/valentin.jpg" alt="Valentin"> -->
+          <div class="initials">V</div>
+        </div>
+        <h4>Valentin</h4>
+        <p class="team-role">ML Engineer</p>
+        <div class="team-logos">
+          <span>Mistral</span><span>HEC</span>
+        </div>
+        <p class="team-bio">IngÃ©nieur machine learning passÃ© par Mistral, Valentin comprend l'IA de l'intÃ©rieur â comment les modÃ¨les fonctionnent, leurs forces, leurs limites. Il traduit la complexitÃ© technique en solutions concrÃ¨tes et accessibles, pour que vous sachiez exactement quand et comment utiliser chaque outil.</p>
+      </div>
+
+      <!-- MAXIME -->
+      <div class="team-card reveal reveal-d2">
+        <div class="team-photo">
+          <!-- REPLACE: photo de Maxime -->
+          <!-- <img src="photos/maxime.jpg" alt="Maxime GÃ©rardin"> -->
+          <div class="initials">M</div>
+        </div>
+        <h4>Maxime GÃ©rardin</h4>
+        <p class="team-role">Product Manager</p>
+        <div class="team-logos">
+          <span>Amo</span><span>Nekko</span><span>HEC</span>
+        </div>
+        <p class="team-bio">Product manager chez Amo puis Nekko, Maxime sait construire des produits que les gens utilisent vraiment. Il apporte la rigueur produit au bootcamp â chaque module est pensÃ© pour Ãªtre utile dÃ¨s le premier jour, pas dans trois mois.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section class="section" id="programme">
+  <div class="container">
+    <span class="label reveal">Le programme</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:.4rem" class="reveal reveal-d1">Qu'est-ce qu'on <em style="font-style:italic;color:var(--accent)">propose ?</em></h2>
+    <p style="color:var(--muted);max-width:540px;font-size:.95rem" class="reveal reveal-d2">Inclut une formation Claudebot et une Clawdbot. Chaque module se termine avec quelque chose de concret que vous utilisez dÃ¨s le lendemain.</p>
+
+    <div class="curric-list">
+      <div class="curric-mod reveal">
+        <div class="curric-hd" onclick="togMod(this)">
+          <span class="curric-num">01</span>
+          <span class="curric-title">Le contexte</span>
+          <span class="curric-tog">+</span>
+        </div>
+        <div class="curric-body"><div class="curric-inner">
+          <p>On vous donne les clÃ©s pour que vous ne soyez plus perdus quand on vous parle de Claude Code, OpenClaw, les Skills, de Dario ou de Sam, de DeepSeek et de Mistral, de Legora ou Rogo. Qu'est-ce que le RAG. On vous explique quels sont les diffÃ©rents LLMs, leurs spÃ©cificitÃ©s et ce qu'ils font. Quelles implications pour les marchÃ©s financiers, pour le logiciel notamment. Quelles implications pour le monde du travail. Quelles implications pour vous â pour vos enfants. Comment les LLMs fonctionnent, lesquels sont les plus adaptÃ©s Ã  faire quoi.</p>
+          <div class="curric-tags"><span>LLMs</span><span>Claude vs GPT vs Gemini</span><span>RAG</span><span>Agents</span><span>MarchÃ©s</span></div>
+        </div></div>
+      </div>
+
+      <div class="curric-mod reveal reveal-d1">
+        <div class="curric-hd" onclick="togMod(this)">
+          <span class="curric-num">02</span>
+          <span class="curric-title">La base â de quoi on parle & comment on l'intÃ¨gre</span>
+          <span class="curric-tog">+</span>
+        </div>
+        <div class="curric-body"><div class="curric-inner">
+          <p><strong>De quoi on parle :</strong> Les prompts, system prompts, prompt chaining. Les Projects. Deep Research. Les Tasks. Les Skills. Les Tools. Les Gems. NotebookLM. Agent mode. Et les outils indispensables : Granola, Fyxer.</p>
+          <p><strong>Comment on l'intÃ¨gre :</strong> On ne fait pas que vous montrer les outils â on les intÃ¨gre ensemble dans votre quotidien, pas Ã  pas.</p>
+          <div class="curric-tags"><span>Prompts</span><span>System prompts</span><span>Projects</span><span>Deep Research</span><span>NotebookLM</span><span>Granola</span><span>Fyxer</span><span>Agent mode</span></div>
+        </div></div>
+      </div>
+
+      <div class="curric-mod reveal reveal-d2">
+        <div class="curric-hd" onclick="togMod(this)">
+          <span class="curric-num">03</span>
+          <span class="curric-title">Les automatisations</span>
+          <span class="curric-tog">+</span>
+        </div>
+        <div class="curric-body"><div class="curric-inner">
+          <p>Make, n8n, Claude Cowork, Claude Code â on vous apprend Ã  construire des automatisations qui tournent sans vous. Du traitement de mails Ã  la gÃ©nÃ©ration de rapports.</p>
+          <div class="curric-tags"><span>Make</span><span>n8n</span><span>Claude Cowork</span><span>Claude Code</span></div>
+        </div></div>
+      </div>
+
+      <div class="curric-mod reveal reveal-d3">
+        <div class="curric-hd" onclick="togMod(this)">
+          <span class="curric-num">04</span>
+          <span class="curric-title">Le vibe coding</span>
+          <span class="curric-tog">+</span>
+        </div>
+        <div class="curric-body"><div class="curric-inner">
+          <p>Claude Code, Cursor, Lovable â apprenez Ã  crÃ©er des applications, des logiciels, des automatisations sur mesure pour vous et vos collÃ¨gues. Identifiez ce que vous pouvez automatiser et comment le faire. Inclut la configuration de votre Clawdbot.</p>
+          <div class="curric-tags"><span>Claude Code</span><span>Cursor</span><span>Lovable</span><span>Clawdbot</span><span>Vibe coding</span></div>
+        </div></div>
+      </div>
+
+      <div class="curric-mod reveal reveal-d4">
+        <div class="curric-hd" onclick="togMod(this)">
+          <span class="curric-num">05</span>
+          <span class="curric-title">L'IA appliquÃ©e â exemples mÃ©tiers concrets</span>
+          <span class="curric-tog">+</span>
+        </div>
+        <div class="curric-body"><div class="curric-inner">
+          <p>Des cas concrets, pas de la thÃ©orie. Prospection client automatisÃ©e. CrÃ©ation de prÃ©sentations PowerPoint aux normes de votre entreprise. Analyses financiÃ¨res et reporting. On vous montre les workflows exacts que nous utilisons au quotidien.</p>
+          <div class="curric-tags"><span>Prospection</span><span>PowerPoint</span><span>Finance</span><span>CRM</span><span>Reporting</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAKEAWAYS -->
+<section class="section section--cream">
+  <div class="container">
+    <span class="label reveal">Au terme de ce bootcamp</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.15;letter-spacing:-.02em" class="reveal reveal-d1">Vous saurez <em style="font-style:italic;color:var(--accent)">concrÃ¨tement.</em></h2>
+    <div class="take-grid">
+      <div class="take-item reveal"><div class="take-icon">ð§</div><h4>Automatiser la gestion de vos emails</h4><p>Triage, rÃ©ponses, suivi â votre boÃ®te mail tourne sans vous.</p></div>
+      <div class="take-item reveal reveal-d1"><div class="take-icon">ð</div><h4>Automatiser la crÃ©ation de PPT</h4><p>Des slides aux normes de votre charte graphique, en quelques minutes.</p></div>
+      <div class="take-item reveal reveal-d2"><div class="take-icon">ð¯</div><h4>Automatiser votre prospection</h4><p>Identification de leads, enrichissement, outreach multicanal â sans y penser.</p></div>
+      <div class="take-item reveal reveal-d3"><div class="take-icon">ðï¸</div><h4>Automatiser votre prise de notes</h4><p>Pendant vos calls et rÃ©unions â rÃ©sumÃ©s, actions, comptes-rendus.</p></div>
+      <div class="take-item reveal"><div class="take-icon">ð</div><h4>Automatiser vos analyses Excel</h4><p>Rapports, tableaux de bord, analyses financiÃ¨res â sans quitter Excel.</p></div>
+      <div class="take-item reveal reveal-d1"><div class="take-icon">â¡</div><h4>Mettre en place des automatisations via Claude Cowork</h4><p>Pour les tÃ¢ches rÃ©currentes qui rendent votre quotidien frustrant.</p></div>
+      <div class="take-item reveal reveal-d2"><div class="take-icon">ð ï¸</div><h4>Vibe coder des applications</h4><p>Logiciels, automatisations sur mesure pour vous et vos collÃ¨gues â sans Ã©crire de code.</p></div>
+      <div class="take-item reveal reveal-d3"><div class="take-icon">ð§ </div><h4>AccÃ¨s perpÃ©tuel Ã  la communautÃ© DÃ©clic</h4><p>Un chat qui vous tient en permanence informÃ© des derniÃ¨res nouvelles, techniques et solutions IA.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="inscription">
+  <div class="container" style="text-align:center">
+    <span class="label reveal">Inscription</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:.5rem" class="reveal reveal-d1">Participez au bootcamp. Ayez le <em style="font-style:italic;color:var(--accent)">dÃ©clic.</em></h2>
+    <p style="color:var(--muted);font-size:.95rem" class="reveal reveal-d2">Reprenez le contrÃ´le et faites de l'IA un dÃ©multiplicateur. IntÃ©grez la communautÃ© DÃ©clic.</p>
+
+    <div class="price-card reveal reveal-d3">
+      <h3>Bootcamp DÃ©clic IA</h3>
+      <p style="color:var(--muted);font-size:.88rem">4 semaines Â· En ligne Â· Prochaine session bientÃ´t</p>
+      <div class="price-amt">950â¬ <span>TTC</span></div>
+      <ul class="price-list">
+        <li>5 modules + sessions live hebdomadaires</li>
+        <li>Configuration Claudebot + Clawdbot incluse</li>
+        <li>Coaching individuel et exercices corrigÃ©s</li>
+        <li>AccÃ¨s Ã  vie aux replays et mises Ã  jour</li>
+        <li>CommunautÃ© DÃ©clic â accÃ¨s perpÃ©tuel</li>
+        <li>Satisfait ou remboursÃ© sous 14 jours</li>
+      </ul>
+      <a href="#" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;margin-top:1rem">RÃ©server ma place â</a>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.8rem">Paiement en 3x sans frais disponible</p>
+    </div>
+  </div>
+</section>
+
+<!-- BILL GATES QUOTE -->
+<div class="quote-block">
+  <p class="qt reveal">"I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it."</p>
+  <p class="qa reveal reveal-d1">â Bill Gates</p>
+</div>
+
+<!-- MEME placeholder -->
+<div class="container">
+  <div class="meme-block reveal">
+    ð <strong>Image placeholder :</strong> Le mÃ¨me du super-hÃ©ros qui hÃ©site entre deux boutons â <br>
+    "Passer du temps Ã  apprendre pour ensuite automatiser mon travail" vs "Continuer Ã  faire la mÃªme chose manuellement"<br>
+    <em>â InsÃ©rer ici une image custom du mÃ¨me</em>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="reveal">Reprenez le contrÃ´le avec <em>DÃ©clic IA.</em></h2>
+  <p class="reveal reveal-d1">Chaque semaine que vous attendez, d'autres automatisent ce qui vous prend des heures.</p>
+  <a href="#inscription" class="btn btn--primary btn--lg reveal reveal-d2">Rejoindre le prochain bootcamp â</a>
+</section>
+
+<footer>
+  <p>Â© 2026 DÃ©clic IA â Paris</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Rotating text
+function setupRot(id,ms){
+  const w=document.getElementById(id);if(!w)return;
+  const items=w.querySelectorAll('.rw');let cur=0;
+  setInterval(()=>{
+    items[cur].classList.remove('on');items[cur].classList.add('off');
+    const prev=cur;cur=(cur+1)%items.length;items[cur].classList.add('on');
+    setTimeout(()=>items[prev].classList.remove('off'),450);
+  },ms);
+}
+setupRot('rot1',2000);
+setupRot('rot2',2400);
+
+// Accordion
+function togMod(hd){
+  const mod=hd.parentElement;const was=mod.classList.contains('open');
+  document.querySelectorAll('.curric-mod.open').forEach(m=>m.classList.remove('open'));
+  if(!was)mod.classList.add('open');
+}
+</script>
+</body>
+</html>
