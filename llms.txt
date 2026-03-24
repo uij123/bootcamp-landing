@@ -1,0 +1,72 @@
+# Déclic AI
+
+> Le bootcamp IA de 5 semaines pour les professionnels non-techniques · Paris 11ème + Remote
+
+Déclic AI est un programme intensif qui permet aux consultants, managers, analystes et chefs de projet de maîtriser l'intelligence artificielle et l'automatisation — sans écrire une seule ligne de code. En 5 semaines, les participants passent de "j'ai testé ChatGPT une fois" à "je déploie des agents IA dans mon workflow quotidien".
+
+## À propos
+
+- **Nom** : Déclic AI
+- **Format** : Bootcamp intensif, 5 semaines
+- **Durée** : ~25h total (3h session live + 2h async par semaine)
+- **Lieu** : Paris 11ème (présentiel) + remote disponible
+- **Langue** : Français
+- **Public** : Professionnels non-techniques avec 0 à 5 ans d'expérience
+- **Prochaine session** : 13 avril 2026
+- **Tarif de lancement** : 999€ (20 premières places — prix normal 2 000€)
+- **Formation entreprise** : Disponible sur devis à partir de 5 participants
+
+## Programme (5 semaines)
+
+- **S1 — Parler IA couramment** : LLMs, tokens, hallucinations, carte des acteurs (OpenAI, Anthropic, Google, Mistral). Outils : Perplexity, Claude.
+- **S2 — Faire le travail de trois personnes** : Prompting avancé, IA pour les docs, données et présentations. Outils : Claude, NotebookLM, Julius AI, Gamma.
+- **S3 — Votre première automation (en live)** : Penser en workflows, Make vs N8N vs Zapier, connecter Gmail/Notion/Slack à des modèles IA sans coder. Outils : Make, N8N, Claude, Notion.
+- **S4 — Agents IA** : Construire des agents autonomes, orchestration multi-agents, cas d'usage métier. Outils : Claude, OpenAI Assistants, LangChain (no-code).
+- **S5 — Votre mini-produit IA** : De l'idée au déploiement, présentation à un jury de praticiens.
+
+## Formateurs
+
+- **Investment Professional, Partech** — évalue et finance des startups IA depuis leur seed.
+- **ML Engineer, Mistral AI** — construit les modèles LLM utilisés dans le programme.
+- **Product Leader, Neko Health** — pilote des produits IA à impact réel dans l'healthtech.
+
+## Intervenants issus de
+
+Qonto · Hugging Face · Station F · H Company · Amo · Mistral AI · Partech · BlaBlaCar · Alan · Neko Health · Doctrine · Contentsquare
+
+## Résultats (promo pilote)
+
+- +40% de gain de productivité perçu
+- 92% recommanderaient Déclic AI
+- 68% ont obtenu un nouveau rôle ou une nouvelle mission
+- 97% se sentent à l'aise avec l'IA après le programme
+
+## Témoignages
+
+- **Sylvain** (ex-consultant) : "J'ai automatisé mes reportings, créé un agent qui qualifie mes leads, et décroché une mission en tant que consultant IA indépendant. En 5 semaines."
+- **Victor** (analyste PE) : "J'ai automatisé l'extraction de données sur 200+ entreprises, ce qui m'a pris une heure au lieu de deux semaines."
+- **Marguerite** (fondatrice) : "Déclic m'a appris à construire un MVP avec des agents IA et à automatiser mon onboarding client."
+- **Maxime** (chief of staff) : "Je récupère 6-7h par semaine grâce aux automations — briefs, CR de réunions, tableaux de bord."
+
+## FAQ
+
+**Faut-il savoir coder ?** Non. Aucune compétence technique requise.
+
+**Combien de temps par semaine ?** ~5h : 3h live + 2h async. Compatible avec un emploi à temps plein.
+
+**Peut-on suivre à distance ?** Oui. Paris 11ème en présentiel ou 100% remote, au choix.
+
+**Combien ça coûte ?** 999€ tarif lancement (20 places) — 2 000€ prix normal.
+
+**Est-ce que je reçois un certificat ?** Oui. Certificat Déclic AI + portfolio de 5 projets + accès à vie aux mises à jour.
+
+**Formation entreprise ?** Oui, session dédiée sur devis à partir de 5 participants.
+
+## Candidature
+
+Formulaire disponible sur : https://maximegerardin97-max.github.io/bootcamp-landing/#inscription
+Réponse sous 48h. 20 places par session.
+
+## Contact
+
+Site : https://maximegerardin97-max.github.io/bootcamp-landing/
